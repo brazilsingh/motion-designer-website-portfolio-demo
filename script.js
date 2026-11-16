@@ -26,15 +26,15 @@ const CONTENT = {
 
   // Work, newest first. Paste a YouTube link in "url".
   longForm: [
-    { title: "Project 01", meta: "Long-form · Edit", url: "https://youtu.be/x-Pq1SRFTkU" },
-    { title: "Project 02", meta: "Long-form · Edit", url: "https://youtu.be/n50KkoucMpU" },
-    { title: "Project 03", meta: "Long-form · Edit", url: "https://youtu.be/Aa_T1uI4UXY" },
-    { title: "Project 04", meta: "Long-form · Edit", url: "https://youtu.be/CY25svrgxC0" },
+    { title: "Launch Video for SaaSWAVE", meta: "Client · Arsacre", url: "https://youtu.be/x-Pq1SRFTkU" },
+    { title: "How to Create AI Motion Graphics in Minutes", meta: "Client · ReachMora", url: "https://youtu.be/n50KkoucMpU" },
+    { title: "Editing Motion Graphics Reels in Premiere Pro", meta: "Client · Usman Explains", url: "https://youtu.be/Aa_T1uI4UXY" },
+    { title: "How to Become a Graphic Designer", meta: "Client · Devesh Sharma", url: "https://youtu.be/CY25svrgxC0" },
   ],
   shorts: [
-    { title: "Short 01", meta: "Shorts / Reels", url: "https://www.youtube.com/shorts/fLonJKaTQqM" },
-    { title: "Short 02", meta: "Shorts / Reels", url: "https://youtube.com/shorts/Ym_hRAgy97k" },
-    { title: "Short 03", meta: "Shorts / Reels", url: "https://youtube.com/shorts/xWbqUWQe4PU" },
+    { title: "Motion Graphics Product Ads", meta: "Client · Akshay Barate", url: "https://www.youtube.com/shorts/fLonJKaTQqM" },
+    { title: "Motion Design Reel 2023", meta: "Client · sanephix", url: "https://youtube.com/shorts/Ym_hRAgy97k" },
+    { title: "Shoe Ad Animation in After Effects", meta: "Client · Sekhsadi Academy", url: "https://youtube.com/shorts/xWbqUWQe4PU" },
   ],
 
   steps: [
