@@ -48,8 +48,6 @@ const CONTENT = {
   email: "antimsinghanup@gmail.com",
   whatsapp: "8801613883578",   // with country code, digits only
   whatsappDisplay: "+880 1613-883578",
-  socials: [        // e.g. { label: "Instagram", url: "https://instagram.com/you" }
-  ],
 
   collabLabel: "let’s collab",
   collabLink: "#contact",   // on the contact section, a click opens WhatsApp instead
@@ -110,8 +108,15 @@ function buildRail(list, railEl, isShort) {
     if (id) {
       media.setAttribute("aria-label", `Play ${v.title}`);
       media.dataset.cursor = "";
-      const thumb = isShort ? `https://i.ytimg.com/vi/${id}/oardefault.jpg` : `https://i.ytimg.com/vi/${id}/hqdefault.jpg`;
-      media.innerHTML = `<img src="${thumb}" alt="" loading="lazy" decoding="async" width="480" height="${isShort ? 854 : 270}" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/${id}/hqdefault.jpg'"><span class="vid__play">${ICON.play}</span>`;
+      // YouTube answers a missing thumbnail with a tiny 120×90 grey image (not an error), so check the size
+      const tries = isShort ? ["oardefault", "hq720", "hqdefault"] : ["maxresdefault", "hq720", "hqdefault"];
+      media.innerHTML = `<img alt="" loading="lazy" decoding="async" width="480" height="${isShort ? 854 : 270}"><span class="vid__play">${ICON.play}</span>`;
+      const img = media.querySelector("img");
+      let t = 0;
+      const next = () => { if (t < tries.length) img.src = `https://i.ytimg.com/vi/${id}/${tries[t++]}.jpg`; };
+      img.addEventListener("load", () => { if (img.naturalWidth <= 120) next(); });
+      img.addEventListener("error", next);
+      next();
       media.addEventListener("click", () => {
         const f = document.createElement("iframe");
         f.src = `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0&playsinline=1`;
@@ -161,7 +166,6 @@ const toast = (msg) => { const t = $("#toast"); t.textContent = msg; t.classList
     const n = CONTENT.whatsapp.replace(/\D/g, "");
     row("WhatsApp", `<a class="crow__v" href="https://wa.me/${n}" target="_blank" rel="noopener">${esc(CONTENT.whatsappDisplay || "+" + n)}</a>`);
   } else row("WhatsApp", `<span class="crow__v is-empty">WhatsApp coming soon</span>`);
-  CONTENT.socials.forEach((s) => $("#socials").append(el("li", null, `<a href="${esc(s.url)}" target="_blank" rel="noopener" data-cursor>${esc(s.label)}${ICON.out}</a>`)));
 }
 
 /* ---------- Loader + nav + progress ---------- */
@@ -206,6 +210,34 @@ function processUpdate() {
 }
 processUpdate();
 
+/* ---------- Hero 3D background: ring of film frames from your videos + moving floor + mouse parallax ---------- */
+{
+  const ring = $("#ring3d"), cam = $("#sceneCam"), scene = $("#scene");
+  const ids = CONTENT.longForm.map((v) => ytId(v.url)).filter(Boolean);
+  const N = 10;
+  for (let i = 0; i < N; i++) {
+    const f = el("div", "frame3d");
+    f.style.setProperty("--a", `${(360 / N) * i}deg`);
+    if (ids.length) f.style.backgroundImage = `url(https://i.ytimg.com/vi/${ids[i % ids.length]}/mqdefault.jpg)`;
+    ring.append(f);
+  }
+  // pause all scene animation when the hero is off screen
+  new IntersectionObserver(([e]) => scene.classList.toggle("paused", !e.isIntersecting)).observe(scene);
+  if (finePointer && !reduceMotion) {
+    let tx = 0, ty = 0, x = 0, y = 0, raf = null;
+    const tick = () => {
+      x = lerp(x, tx, 0.06); y = lerp(y, ty, 0.06);
+      cam.style.setProperty("--ry", `${x.toFixed(3)}deg`); cam.style.setProperty("--rx", `${y.toFixed(3)}deg`);
+      raf = Math.abs(x - tx) + Math.abs(y - ty) > 0.01 ? requestAnimationFrame(tick) : null;
+    };
+    addEventListener("pointermove", (e) => {
+      if (scene.classList.contains("paused")) return;
+      tx = (e.clientX / innerWidth - 0.5) * 10; ty = -(e.clientY / innerHeight - 0.5) * 6;
+      if (!raf) raf = requestAnimationFrame(tick);
+    }, { passive: true });
+  }
+}
+
 /* ---------- EFFECT 1: Hanging, stretchy ID card (Verlet rope) ---------- */
 {
   $("#cardName").textContent = CONTENT.name;
@@ -216,13 +248,17 @@ processUpdate();
 
   const SEGMENTS = 12, GRAVITY = 0.55, DAMPING = 0.982, MAX_SPEED = 16, CLIP_GAP = 16;
   const stage = $("#stage"), card = $("#card"), inner = $(".card__inner"), holo = $(".card__holo"), strap = $("#strapPath"), hint = $("#hint");
-  let W, H, anchor, segLen, pts = [], cons = [], drag = null, hasDragged = false, settled = 0, running = false, visible = true, still = 0;
+  let W, H, DW, DH, anchor, segLen, pts = [], cons = [], drag = null, hasDragged = false, settled = 0, running = false, visible = true, still = 0;
 
-  const anchorX = () => (innerWidth > 960 ? 0.5 : 0.5);
+  const phone = () => innerWidth <= 700;
+  const anchorX = () => (phone() ? 0.5 : 0.5);
   function build() {
-    W = card.offsetWidth; H = card.offsetHeight;
+    // the card is drawn at 250×360 and scaled to fit the screen height (the physics works in scaled size)
+    DW = card.offsetWidth; DH = card.offsetHeight;
     const sh = stage.clientHeight;
-    const restTop = innerWidth > 960 ? Math.max(130, (sh - H) / 2 - 10) : Math.max(70, sh - H - 70);
+    const s = phone() ? clamp((sh - 40) / DH, 0.42, 0.78) : clamp((sh - 210) / DH, 0.62, 1);
+    W = DW * s; H = DH * s;
+    const restTop = phone() ? Math.max(36, sh - H - 12) : Math.max(100, (sh - H) / 2 - 10);
     const ropeLen = Math.max(50, restTop - CLIP_GAP + 20);
     anchor = { x: stage.clientWidth * anchorX(), y: -20 };
     segLen = ropeLen / SEGMENTS; pts = []; cons = [];
@@ -271,7 +307,7 @@ processUpdate();
   }
   function render() {
     const [TL, TR, , BL] = corners();
-    const ax = (TR.x - TL.x) / W, ay = (TR.y - TL.y) / W, bx = (BL.x - TL.x) / H, by = (BL.y - TL.y) / H;
+    const ax = (TR.x - TL.x) / DW, ay = (TR.y - TL.y) / DW, bx = (BL.x - TL.x) / DH, by = (BL.y - TL.y) / DH;
     card.style.transform = `matrix(${ax},${ay},${bx},${by},${TL.x},${TL.y})`;
     const cxv = (TL.x - TL.px + TR.x - TR.px) / 2, cyv = (TL.y - TL.py + BL.y - BL.py) / 2;
     const ry = clamp(cxv * 2.2, -40, 40), rx = clamp(-cyv * 1.2, -25, 25);
@@ -316,10 +352,12 @@ processUpdate();
   card.addEventListener("pointerup", release);
   card.addEventListener("pointercancel", release);
 
-  let lastW = innerWidth;
+  let lastW = innerWidth, lastH = stage.clientHeight;
   addEventListener("resize", () => {
     if (!anchor) return;
-    if ((innerWidth > 960) !== (lastW > 960)) { lastW = innerWidth; build(); render(); wake(); return; }
+    const h = stage.clientHeight;
+    // rebuild when switching phone/desktop or when the height changes a lot (not for the phone URL bar)
+    if ((innerWidth <= 700) !== (lastW <= 700) || Math.abs(h - lastH) > 120) { lastW = innerWidth; lastH = h; build(); render(); wake(); return; }
     lastW = innerWidth;
     const nx = stage.clientWidth * anchorX(), dx = nx - anchor.x;
     pts.forEach((p) => { p.x += dx; p.px += dx; }); anchor.x = nx; pts[0].x = pts[0].px = nx;
