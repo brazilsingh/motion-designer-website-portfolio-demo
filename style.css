@@ -85,7 +85,9 @@ button { font: inherit; color: inherit; }
 .btn--ghost { border: 1px solid var(--line-2); color: var(--text); }
 .btn--ghost:hover { border-color: rgba(255,255,255,.3); background: rgba(255,255,255,.04); }
 .tools { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; padding: 0; margin: 36px 0 0; }
-.tools li { min-width: 40px; height: 40px; padding: 0 10px; display: grid; place-items: center; border-radius: 10px; background: var(--panel); border: 1px solid var(--line); font: 600 13px var(--mono); color: var(--text); }
+.tool { width: 40px; height: 40px; border-radius: 9px; transition: transform .25s var(--ease), box-shadow .25s; }
+.tool svg { width: 100%; height: 100%; display: block; }
+.tool:hover { transform: translateY(-3px); box-shadow: 0 10px 22px -10px rgba(0,0,0,.8); }
 
 /* ID card stage (hangs from the top of the hero) */
 .hero__card { position: absolute; top: 0; right: 0; width: 44%; height: 100%; }
@@ -123,11 +125,20 @@ button { font: inherit; color: inherit; }
 .card__holo { position: absolute; inset: 0; pointer-events: none; border-radius: inherit; mix-blend-mode: color-dodge; opacity: .55; background: linear-gradient(115deg, transparent 20%, rgba(255,0,128,.25) 35%, rgba(0,220,255,.28) 45%, rgba(255,230,0,.22) 55%, transparent 70%); background-size: 250% 250%; background-position: var(--gx, 50%) var(--gy, 50%); }
 
 /* ===== Skills strip ===== */
-.strip { overflow: hidden; border-block: 1px solid var(--line); padding: 22px 0; }
-.strip__track { display: flex; width: max-content; animation: marquee 32s linear infinite; }
-.strip__track span { display: inline-flex; align-items: center; gap: 28px; padding-right: 28px; font-size: clamp(22px, 3vw, 36px); font-weight: 600; letter-spacing: -0.04em; white-space: nowrap; }
-.strip__track span::after { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--accent); }
-@keyframes marquee { to { transform: translateX(-50%); } }
+.strip {
+  overflow: hidden; border-block: 1px solid var(--line); padding: 18px 0;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
+          mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
+}
+.strip__track { display: flex; width: max-content; animation: marquee 38s linear infinite; will-change: transform; }
+.strip:hover .strip__track { animation-play-state: paused; }
+.strip__group { display: flex; align-items: center; gap: 22px; padding-right: 22px; flex: none; }
+.strip__word { font-size: 17px; font-weight: 500; letter-spacing: -0.01em; color: var(--body); white-space: nowrap; transition: color .3s; }
+.strip__word--alt { font-family: "Instrument Serif", Georgia, serif; font-style: italic; font-weight: 400; font-size: 20px; letter-spacing: 0; color: var(--text); }
+.strip__word:hover { color: var(--accent); }
+.strip__star { width: 10px; height: 10px; flex: none; fill: var(--accent); animation: spin 6s linear infinite; }
+@keyframes marquee { to { transform: translateX(-25%); } }
+@keyframes spin { to { transform: rotate(360deg); } }
 
 /* ===== Sections ===== */
 .section { padding-block: var(--pad); }
@@ -275,6 +286,7 @@ html.has-cursor .cursor { display: block; }
   .timeline { padding: 12px; }
   .track { height: 32px; }
   .clip { font-size: 9px; padding: 0 5px; }
+  .strip__word { font-size: 15px; } .strip__word--alt { font-size: 18px; }
   .crow { flex-wrap: wrap; gap: 6px 12px; }
   .crow__k { width: 100%; }
   .venom-hit { height: 52px; font-size: 17px; padding: 0 24px; }
@@ -284,6 +296,6 @@ html.has-cursor .cursor { display: block; }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
-  .strip__track { animation: none; }
+  .strip__track, .strip__star { animation: none; }
   .timeline { --tilt: 0deg !important; --tscale: 1 !important; }
 }

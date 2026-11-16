@@ -3,38 +3,38 @@
    Empty values ("") are hidden or shown as a placeholder until you fill them.
    ===================================================================== */
 const CONTENT = {
-  name: "Brazil Singh",                                   // placeholder: change to how you want your name shown
+  name: "Anup Singh",
   roles: "Video Editor · Graphic Designer · Motion Designer · After Effects",
   cardRole: "Video Editor & Motion",                      // short job title on the ID card
-  cardCode: "ID · 2026 · BS-01",
+  cardCode: "ID · 2026 · AS-01",
   tagline: "I shape attention through pacing, motion and composition.",
-  strapText: "VIDEO EDITOR • MOTION DESIGNER • BRAZIL SINGH • ",
+  strapText: "VIDEO EDITOR • MOTION DESIGNER • ANUP SINGH • ",
 
-  tools: ["Ae", "Pr", "Ps", "Ai", "DaVinci"],
-  skills: ["Pacing", "Color", "Sound design", "Motion graphics", "Typography", "VFX"],
+  // software badges: ae, pr, ps, ai, davinci (shown as coloured app logos)
+  tools: ["ae", "pr", "ps", "ai", "davinci"],
+  skills: ["Sound design", "Motion graphics", "Typography", "VFX", "Pacing", "Color"],
 
   aboutTitle: "Edits with a pulse.",
-  about: "I'm a video editor and motion designer. I cut long-form videos and Shorts, design the graphics that go in them, and build motion in After Effects so every frame earns its place.",
+  about: "I'm Anup, a video editor and motion designer. I cut long-form videos and Shorts, design the graphics that go in them, and build motion in After Effects so every frame earns its place.",
   strengths: ["Visual direction", "Storytelling", "Pacing"],
 
   photos: {
-    card: "assets/me-front.svg",   // ID card photo (send yours → assets/me-front.webp)
-    normal: "assets/me-front.svg", // About photo, normal version
-    hero: "assets/me-mask.svg",    // About photo, Venom version (same size and framing as normal)
+    card: "assets/me-front.webp",   // ID card photo
+    normal: "assets/me-front.webp", // About photo, normal version
+    hero: "assets/me-mask.webp",    // About photo, Venom version (same size and framing as normal)
   },
 
-  // Work, newest first. Paste a YouTube link in "url". Leave url "" to show a placeholder card.
+  // Work, newest first. Paste a YouTube link in "url".
   longForm: [
-    { title: "Long-form project 1", meta: "YouTube · Edit", url: "" },
-    { title: "Long-form project 2", meta: "YouTube · Edit + motion", url: "" },
-    { title: "Long-form project 3", meta: "Documentary · Edit", url: "" },
+    { title: "Project 01", meta: "Long-form · Edit", url: "https://youtu.be/x-Pq1SRFTkU" },
+    { title: "Project 02", meta: "Long-form · Edit", url: "https://youtu.be/n50KkoucMpU" },
+    { title: "Project 03", meta: "Long-form · Edit", url: "https://youtu.be/Aa_T1uI4UXY" },
+    { title: "Project 04", meta: "Long-form · Edit", url: "https://youtu.be/CY25svrgxC0" },
   ],
   shorts: [
-    { title: "Short 1", meta: "Shorts / Reels", url: "" },
-    { title: "Short 2", meta: "Shorts / Reels", url: "" },
-    { title: "Short 3", meta: "Shorts / Reels", url: "" },
-    { title: "Short 4", meta: "Shorts / Reels", url: "" },
-    { title: "Short 5", meta: "Shorts / Reels", url: "" },
+    { title: "Short 01", meta: "Shorts / Reels", url: "https://www.youtube.com/shorts/fLonJKaTQqM" },
+    { title: "Short 02", meta: "Shorts / Reels", url: "https://youtube.com/shorts/Ym_hRAgy97k" },
+    { title: "Short 03", meta: "Shorts / Reels", url: "https://youtube.com/shorts/xWbqUWQe4PU" },
   ],
 
   steps: [
@@ -45,13 +45,14 @@ const CONTENT = {
   ],
 
   contactLine: "Tell me about your video. I usually reply within a day.",
-  email: "",        // e.g. "you@example.com"
-  whatsapp: "",     // with country code, digits only, e.g. "8801XXXXXXXXX"
+  email: "antimsinghanup@gmail.com",
+  whatsapp: "8801613883578",   // with country code, digits only
+  whatsappDisplay: "+880 1613-883578",
   socials: [        // e.g. { label: "Instagram", url: "https://instagram.com/you" }
   ],
 
   collabLabel: "let’s collab",
-  collabLink: "#contact",   // or "https://wa.me/<number>" or "mailto:you@example.com"
+  collabLink: "#contact",   // on the contact section, a click opens WhatsApp instead
 };
 
 /* ===================================================================== */
@@ -71,13 +72,27 @@ const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&
 /* ---------- Fill the page ---------- */
 document.querySelectorAll("[data-c]").forEach((n) => { const v = CONTENT[n.dataset.c]; if (v) n.textContent = v; });
 $("#year").textContent = new Date().getFullYear();
-CONTENT.tools.forEach((t) => $("#tools").append(el("li", null, esc(t))));
+const TOOL_LOGOS = {
+  ae: { name: "Adobe After Effects", tile: ["#00005b", "#d291ff"], txt: "Ae" },
+  pr: { name: "Adobe Premiere Pro", tile: ["#00005b", "#9999ff"], txt: "Pr" },
+  ps: { name: "Adobe Photoshop", tile: ["#001e36", "#31a8ff"], txt: "Ps" },
+  ai: { name: "Adobe Illustrator", tile: ["#330000", "#ff9a00"], txt: "Ai" },
+  davinci: { name: "DaVinci Resolve", svg: '<svg viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="9" fill="#14171c"/><circle cx="20" cy="14.5" r="7" fill="#e64b3b" opacity=".92"/><circle cx="14" cy="24.5" r="7" fill="#3cb878" opacity=".92"/><circle cx="26" cy="24.5" r="7" fill="#2f8fe0" opacity=".92"/></svg>' },
+};
+CONTENT.tools.forEach((k) => {
+  const t = TOOL_LOGOS[k];
+  if (!t) return;
+  const li = el("li", "tool", t.svg || `<svg viewBox="0 0 40 40" aria-hidden="true"><rect x=".75" y=".75" width="38.5" height="38.5" rx="9" fill="${t.tile[0]}" stroke="${t.tile[1]}" stroke-width="1.5"/><text x="20" y="26.5" text-anchor="middle" font-family="Geist, system-ui, sans-serif" font-weight="700" font-size="17" fill="${t.tile[1]}">${t.txt}</text></svg>`);
+  li.title = t.name; li.setAttribute("aria-label", t.name);
+  $("#tools").append(li);
+});
 CONTENT.strengths.forEach((t) => $("#strengths").append(el("li", null, esc(t))));
 CONTENT.steps.forEach((s) => $("#steps").append(el("li", null, `<h3>${esc(s.title)}</h3><p>${esc(s.text)}</p>`)));
-{ // skills strip: two copies so the loop is seamless
-  const strip = $("#strip"), items = CONTENT.skills.map((s) => `<span>${esc(s)}</span>`).join("");
-  strip.innerHTML = items + items + items + items;
-  strip.children.length && [...strip.children].slice(CONTENT.skills.length * 2).forEach((n) => n.setAttribute("aria-hidden", "true"));
+{ // skills strip: words alternate two styles, a spinning star between them; 4 copies so the loop is seamless
+  const strip = $("#strip");
+  const star = '<svg class="strip__star" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0c.6 6.6 5.4 11.4 12 12-6.6.6-11.4 5.4-12 12-.6-6.6-5.4-11.4-12-12C6.6 11.4 11.4 6.6 12 0z"/></svg>';
+  const group = CONTENT.skills.map((s, i) => `<span class="strip__word${i % 2 ? " strip__word--alt" : ""}">${esc(s)}</span>${star}`).join("");
+  strip.innerHTML = [0, 1, 2, 3].map((n) => `<div class="strip__group"${n ? ' aria-hidden="true"' : ""}>${group}</div>`).join("");
 }
 
 /* ---------- Work rails ---------- */
@@ -144,7 +159,7 @@ const toast = (msg) => { const t = $("#toast"); t.textContent = msg; t.classList
   } else row("Email", `<span class="crow__v is-empty">Email coming soon</span>`);
   if (CONTENT.whatsapp) {
     const n = CONTENT.whatsapp.replace(/\D/g, "");
-    row("WhatsApp", `<a class="crow__v" href="https://wa.me/${n}" target="_blank" rel="noopener">+${n}</a>`);
+    row("WhatsApp", `<a class="crow__v" href="https://wa.me/${n}" target="_blank" rel="noopener">${esc(CONTENT.whatsappDisplay || "+" + n)}</a>`);
   } else row("WhatsApp", `<span class="crow__v is-empty">WhatsApp coming soon</span>`);
   CONTENT.socials.forEach((s) => $("#socials").append(el("li", null, `<a href="${esc(s.url)}" target="_blank" rel="noopener" data-cursor>${esc(s.label)}${ICON.out}</a>`)));
 }
@@ -348,10 +363,18 @@ processUpdate();
   const frame = $("#venomFrame"), hit = $("#venomHit");
   hit.textContent = CONTENT.collabLabel; hit.href = CONTENT.collabLink;
   if (/^https?:/.test(CONTENT.collabLink)) { hit.target = "_blank"; hit.rel = "noopener"; }
+  // click: go to contact; if you're already there, open WhatsApp
+  hit.addEventListener("click", (e) => {
+    const c = $("#contact").getBoundingClientRect();
+    if (CONTENT.whatsapp && c.top < innerHeight * 0.5 && c.bottom > 0) { e.preventDefault(); open(`https://wa.me/${CONTENT.whatsapp.replace(/\D/g, "")}`, "_blank", "noopener"); }
+  });
   let geo = null, ready = false, rect = null;
   const SLOW_KEY = "goo-slow";
   // a "too slow" result is remembered for 7 days, then the test runs again
-  let slow = false; try { slow = Date.now() - Number(localStorage.getItem(SLOW_KEY) || 0) < 7 * 864e5; } catch {}
+  // FORCE_GOO = true always shows the 3D goo on computers (like the reference site), skipping the speed test.
+  // Set it to false to bring back the speed test and the light pill fallback on slow graphics chips.
+  const FORCE_GOO = true;
+  let slow = false; try { slow = !FORCE_GOO && Date.now() - Number(localStorage.getItem(SLOW_KEY) || 0) < 7 * 864e5; } catch {}
 
   // time 5 real goo frames; if the median is over 10 ms, use the light CSS pill instead
   function gpuFastEnough() {
@@ -389,7 +412,7 @@ processUpdate();
     if (d.venom === "layout") { geo = d; place(); }
     if (d.venom === "ready") {
       const test = () => setTimeout(() => {
-        if (!gpuFastEnough()) { try { localStorage.setItem(SLOW_KEY, String(Date.now())); } catch {} frame.remove(); return; }
+        if (!FORCE_GOO && !gpuFastEnough()) { try { localStorage.setItem(SLOW_KEY, String(Date.now())); } catch {} frame.remove(); return; }
         ready = true; measure(); document.documentElement.classList.add("goo-ready"); place();
       }, 400);
       // only time it while the tab is on screen, or a background tab would always look slow
@@ -401,7 +424,8 @@ processUpdate();
   // pause the goo when the tab is hidden (unload it), bring it back when visible
   if (finePointer && !reduceMotion && !slow) {
     const go = () => { if (frame.isConnected && !frame.src) frame.src = `collab/venom.html?label=${encodeURIComponent(CONTENT.collabLabel)}`; };
-    setTimeout(() => ("requestIdleCallback" in window ? requestIdleCallback(go, { timeout: 3000 }) : go()), 3500);
+    if (FORCE_GOO) onLoaded(() => setTimeout(go, 600));
+    else setTimeout(() => ("requestIdleCallback" in window ? requestIdleCallback(go, { timeout: 3000 }) : go()), 3500);
   } else {
     frame.remove();
   }
