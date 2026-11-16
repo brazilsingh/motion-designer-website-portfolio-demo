@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Brazil Singh · Video Editor & Motion Designer</title>
+  <meta name="description" content="Video editor, motion designer and After Effects designer. Long-form edits, Shorts, motion graphics and design." />
+  <meta name="theme-color" content="#121110" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <a class="skip" href="#work">Skip to work</a>
+
+  <!-- Loader: timecode counter -->
+  <div class="loader" id="loader" aria-hidden="true">
+    <span class="loader__rec"><i></i>REC</span>
+    <span class="loader__tc" id="loaderTc">00:00:00:00</span>
+  </div>
+
+  <div class="progress" id="progress" aria-hidden="true"></div>
+
+  <header class="nav" id="nav">
+    <a class="nav__name" href="#top" data-c="name"></a>
+    <nav class="nav__links" aria-label="Main">
+      <a href="#work">Work</a>
+      <a href="#process">Process</a>
+      <a href="#about">About</a>
+    </nav>
+    <a class="nav__cta" href="#contact">Let's talk</a>
+  </header>
+
+  <main id="top">
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero__text">
+        <p class="badge"><i></i>Available for new projects</p>
+        <h1 class="hero__name" data-c="name"></h1>
+        <p class="hero__roles" data-c="roles"></p>
+        <p class="hero__tagline" data-c="tagline"></p>
+        <div class="hero__ctas">
+          <a class="btn btn--primary" href="#work">See my work</a>
+          <a class="btn btn--ghost" href="#contact">Start a project</a>
+        </div>
+        <ul class="tools" id="tools" aria-label="Software I use"></ul>
+      </div>
+
+      <div class="hero__card" id="stage">
+        <svg class="lanyard" aria-hidden="true">
+          <path id="strapPath" class="lanyard__strap" d="" />
+          <text class="lanyard__text"><textPath href="#strapPath" id="strapText"></textPath></text>
+        </svg>
+        <div class="card" id="card" role="img" aria-label="ID card. You can drag it." data-cursor>
+          <div class="card__inner">
+            <div class="card__clip" aria-hidden="true"><span></span></div>
+            <div class="card__slot" aria-hidden="true"></div>
+            <div class="card__head"><span>CREW PASS</span><span class="card__rec"><i></i>REC</span></div>
+            <div class="card__photo">
+              <img id="cardPhoto" alt="" draggable="false" />
+              <span class="card__corner tl"></span><span class="card__corner tr"></span>
+              <span class="card__corner bl"></span><span class="card__corner br"></span>
+            </div>
+            <div class="card__role" id="cardRole"></div>
+            <div class="card__name" id="cardName"></div>
+            <div class="card__foot" aria-hidden="true"><span class="card__code" id="cardCode"></span><span class="card__bars"></span></div>
+            <div class="card__holo" aria-hidden="true"></div>
+          </div>
+        </div>
+        <p class="hint" id="hint" aria-hidden="true">Grab the card ↑</p>
+      </div>
+    </section>
+
+    <!-- SKILLS STRIP -->
+    <div class="strip" aria-label="Skills">
+      <div class="strip__track" id="strip"></div>
+    </div>
+
+    <!-- 01 WORK -->
+    <section class="section" id="work">
+      <div class="wrap">
+        <p class="label">01 — Selected work</p>
+        <h2 class="h2">Edits that hold attention.</h2>
+
+        <div class="rail-head">
+          <h3 class="h3">Long-form <span>16:9</span></h3>
+          <div class="rail-arrows">
+            <button class="arrow" type="button" data-rail="long" data-dir="-1" aria-label="Previous long-form videos"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg></button>
+            <button class="arrow" type="button" data-rail="long" data-dir="1" aria-label="Next long-form videos"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg></button>
+          </div>
+        </div>
+        <div class="rail rail--long" id="rail-long"></div>
+
+        <div class="rail-head">
+          <h3 class="h3">Shorts <span>9:16</span></h3>
+          <div class="rail-arrows">
+            <button class="arrow" type="button" data-rail="short" data-dir="-1" aria-label="Previous shorts"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg></button>
+            <button class="arrow" type="button" data-rail="short" data-dir="1" aria-label="Next shorts"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg></button>
+          </div>
+        </div>
+        <div class="rail rail--short" id="rail-short"></div>
+      </div>
+    </section>
+
+    <!-- 02 PROCESS -->
+    <section class="section process" id="process">
+      <div class="wrap">
+        <p class="label">02 — Process</p>
+        <h2 class="h2">How a cut comes together.</h2>
+        <div class="tl-stage">
+          <div class="timeline" id="timeline" aria-hidden="true">
+            <div class="timeline__ruler"></div>
+            <div class="track"><span class="track__name">V2</span><div class="track__lane"><b style="left:8%;width:14%" class="clip c-gfx">Title</b><b style="left:40%;width:18%" class="clip c-gfx">Lower third</b><b style="left:74%;width:12%" class="clip c-gfx">FX</b></div></div>
+            <div class="track"><span class="track__name">V1</span><div class="track__lane"><b style="left:0;width:22%" class="clip c-v">A-roll</b><b style="left:22.5%;width:16%" class="clip c-v">B-roll</b><b style="left:39%;width:26%" class="clip c-v">Interview</b><b style="left:65.5%;width:20%" class="clip c-v">Montage</b><b style="left:86%;width:14%" class="clip c-v">Outro</b></div></div>
+            <div class="track"><span class="track__name">A1</span><div class="track__lane"><b style="left:0;width:65%" class="clip c-a">Dialogue</b><b style="left:66%;width:34%" class="clip c-a">VO</b></div></div>
+            <div class="track"><span class="track__name">A2</span><div class="track__lane"><b style="left:4%;width:92%" class="clip c-m">Music bed</b></div></div>
+            <div class="playhead" id="playhead"><span></span></div>
+          </div>
+        </div>
+        <ol class="steps" id="steps"></ol>
+      </div>
+    </section>
+
+    <!-- 03 ABOUT -->
+    <section class="section" id="about">
+      <div class="wrap about">
+        <div class="reveal" id="reveal">
+          <div class="reveal__frame" id="frame">
+            <img id="normal" alt="" draggable="false" />
+            <div class="reveal__hero" id="heroLayer"><img id="hero" alt="" draggable="false" /></div>
+            <span class="reveal__ring" id="ring"></span>
+          </div>
+          <p class="reveal__hint">Hover the photo · tap and drag on phones</p>
+        </div>
+        <div class="about__text">
+          <p class="label">03 — About</p>
+          <h2 class="h2" data-c="aboutTitle"></h2>
+          <p class="about__bio" data-c="about"></p>
+          <ul class="pills" id="strengths" aria-label="Strengths"></ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 04 CONTACT -->
+    <section class="section" id="contact">
+      <div class="wrap">
+        <p class="label">04 — Contact</p>
+        <div class="contact">
+          <h2 class="contact__title">Let's make something worth watching.</h2>
+          <p class="contact__sub" data-c="contactLine"></p>
+          <div class="contact__rows" id="contactRows"></div>
+          <ul class="socials" id="socials" aria-label="Social links"></ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer wrap">
+    <span>© <span id="year"></span> <span data-c="name"></span></span>
+    <span>3D button: Venom Button by exteestudio (MIT)</span>
+  </footer>
+
+  <!-- 3D "let's collab" goo button (loads last) -->
+  <iframe class="venom-frame" id="venomFrame" title="Let's collab button" aria-hidden="true" tabindex="-1"></iframe>
+  <a class="venom-hit" id="venomHit" href="#contact" data-cursor>let’s collab</a>
+
+  <!-- Cursor follower -->
+  <div class="cursor" id="cursor" aria-hidden="true"><i class="cursor__halo"></i><i class="cursor__ring"></i><i class="cursor__dot"></i></div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>

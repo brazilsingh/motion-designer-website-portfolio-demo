@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="800" height="800">
+  <!-- Placeholder portrait. Replace with your photo (me-front.webp) and update CONTENT.photos in script.js -->
+  <defs>
+    <linearGradient id="skin" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8a7a6b"/><stop offset="1" stop-color="#5e5249"/></linearGradient>
+    <linearGradient id="shirt" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2b2926"/><stop offset="1" stop-color="#1a1917"/></linearGradient>
+  </defs>
+  <path d="M120 800 C130 640 230 560 400 560 C570 560 670 640 680 800 Z" fill="url(#shirt)"/>
+  <rect x="352" y="440" width="96" height="140" rx="40" fill="url(#skin)"/>
+  <ellipse cx="400" cy="340" rx="150" ry="180" fill="url(#skin)"/>
+  <path d="M250 300 C250 170 330 140 400 140 C480 140 556 175 552 300 C530 230 470 215 400 220 C330 222 275 240 250 300 Z" fill="#2a2420"/>
+</svg>
