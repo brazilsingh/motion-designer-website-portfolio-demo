@@ -21,7 +21,8 @@ for block in blocks:
         errors.append(f"JSON-LD is invalid: {exc}")
 
 # 2. The SEO block must contain the core tags.
-for tag in ('rel="canonical"', 'name="description"', 'property="og:image"', 'name="twitter:card"'):
+# og:image is optional: a new copy removes it until it has its own screenshot.
+for tag in ('rel="canonical"', 'name="description"', 'property="og:title"', 'name="twitter:card"'):
     if tag not in html:
         errors.append(f"index.html is missing {tag}")
 
