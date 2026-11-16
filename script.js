@@ -53,6 +53,14 @@ const CONTENT = {
   collabLink: "#contact",   // on the contact section, a click opens WhatsApp instead
 };
 
+/* Demo switch: ?demo=<key> swaps in a sample persona from demos.js. */
+const DEMO = window.DEMOS && window.DEMOS[new URLSearchParams(location.search).get("demo")];
+if (DEMO) {
+  Object.assign(CONTENT, DEMO.content);
+  if (DEMO.accent) document.documentElement.style.setProperty("--accent", DEMO.accent);
+  document.title = `${CONTENT.name} · ${DEMO.label} portfolio demo`;
+}
+
 /* ===================================================================== */
 const $ = (s, r = document) => r.querySelector(s);
 const clamp = (v, a, b) => Math.min(b, Math.max(a, v));

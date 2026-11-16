@@ -37,6 +37,7 @@ Ask the user for all of these in one message, then wait for the answers. Mark wh
 | Share image | `assets/og-image.jpg`, 1200×630. Take a screenshot of the new hero once the site is live |
 | Favicon | the initials in `assets/favicon.svg` |
 | README | the name, the live link and the preview GIF |
+| Demo personas | delete `demos.js`, its `<script src="demos.js">` tag in `index.html`, and the `assets/demos/` folder. They're only for the template's showcase |
 
 ### 3. Do not change
 

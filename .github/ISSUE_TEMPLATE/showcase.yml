@@ -1,0 +1,31 @@
+name: Show your portfolio
+description: Built your site with this template? Add it to the showcase in the README.
+title: "Showcase: [your name]"
+labels: ["showcase"]
+body:
+  - type: input
+    id: url
+    attributes:
+      label: Your live site
+      placeholder: https://username.github.io/my-portfolio/
+    validations:
+      required: true
+  - type: input
+    id: role
+    attributes:
+      label: What you do
+      placeholder: Video editor, motion designer, 3D artist…
+    validations:
+      required: true
+  - type: textarea
+    id: changes
+    attributes:
+      label: What did you change? (optional)
+      description: Colours, sections, anything you added. It helps others.
+  - type: checkboxes
+    id: ok
+    attributes:
+      label: Permission
+      options:
+        - label: You can list my site and name in the README showcase.
+          required: true
