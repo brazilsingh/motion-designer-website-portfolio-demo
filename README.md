@@ -11,6 +11,7 @@
 [**Claude skill**](skills/motion-portfolio/SKILL.md)
 
 [![Stars](https://img.shields.io/github/stars/brazilsingh/motion-designer-website-portfolio-demo?style=for-the-badge&color=ff3b2f&labelColor=121110)](https://github.com/brazilsingh/motion-designer-website-portfolio-demo/stargazers)
+[![Check](https://img.shields.io/github/actions/workflow/status/brazilsingh/motion-designer-website-portfolio-demo/check.yml?branch=main&style=for-the-badge&label=check&labelColor=121110)](https://github.com/brazilsingh/motion-designer-website-portfolio-demo/actions/workflows/check.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-f5f3ef?style=for-the-badge&labelColor=121110)](LICENSE)
 [![Free hosting on GitHub Pages](https://img.shields.io/badge/hosting-free%20on%20GitHub%20Pages-22c55e?style=for-the-badge&labelColor=121110)](#make-it-yours-by-hand)
 
@@ -77,6 +78,10 @@ Ask me for my details first. Keep the design; change only the content.
 Built your portfolio with this? [**Add it here**](https://github.com/brazilsingh/motion-designer-website-portfolio-demo/issues/new?template=showcase.yml) and it'll be listed below.
 
 *Be the first.*
+
+## Contributing
+
+New demo personas, prompts, translations and fixes are welcome. See [`CONTRIBUTING.md`](CONTRIBUTING.md), and start with a [`good first issue`](https://github.com/brazilsingh/motion-designer-website-portfolio-demo/labels/good%20first%20issue). Questions go in [Discussions](https://github.com/brazilsingh/motion-designer-website-portfolio-demo/discussions). Changes are listed in [`CHANGELOG.md`](CHANGELOG.md).
 
 ## Licence and credits
 

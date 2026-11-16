@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Questions and help
+    url: https://github.com/brazilsingh/motion-designer-website-portfolio-demo/discussions
+    about: Ask how to set up or customise the template.
+  - name: Report a security problem
+    url: https://github.com/brazilsingh/motion-designer-website-portfolio-demo/security/advisories/new
+    about: Please report security problems privately, not in a public issue.

@@ -1,0 +1,24 @@
+name: Check
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: JavaScript syntax
+        run: |
+          for f in script.js demos.js; do
+            [ -f "$f" ] && node --check "$f" && echo "$f OK"
+          done
+
+      - name: Structured data, sitemap and file links
+        run: python3 .github/scripts/check.py
